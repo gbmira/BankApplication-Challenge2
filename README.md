@@ -111,6 +111,7 @@ classDiagram
     }
 
     class SavingsAccount {
+        -String accountNickname
         +deposit(Double)
         +withdraw(Double)
     }
