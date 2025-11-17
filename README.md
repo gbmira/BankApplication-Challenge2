@@ -13,6 +13,14 @@ Um desafio para a criação de contas bancárias, clientes e registros de transa
 
 ---
 
+## URL Base do Projeto
+
+A URL base do projeto para acessar todos os endpoints é:
+
+[https://bankapplication-challenge2.onrender.com](https://bankapplication-challenge2.onrender.com)
+
+---
+
 ## Swagger
 
 A documentação interativa via Swagger está disponível online em:  
