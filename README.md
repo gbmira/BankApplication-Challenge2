@@ -62,4 +62,4 @@ A documentação interativa via Swagger está disponível online em:
 - **POST** `/transactions/deposit` – Depositar valor  
 - **POST** `/transactions/withdraw` – Sacar valor  
 - **POST** `/transactions/transfer` – Transferir valor entre contas  
-- **GET** `/transactions` – Lista todas as transações de uma conta pelo número dela  
+- **GET** `/transactions/{accountNumber}` – Lista todas as transações de uma conta pelo número dela  
