@@ -1,4 +1,26 @@
 HELP.md
+
+# Pastas de compilação
+/bin
+/target
+
+# Arquivos de classe
+*.class
+
+# IDEs
+/.idea
+*.iml
+*.ipr
+*.iws
+/.vscode
+
+# Logs
+*.log
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
