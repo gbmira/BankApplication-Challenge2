@@ -1,6 +1,7 @@
 package com.bankapplication.bankapplication.controller;
 
 import com.bankapplication.bankapplication.dto.transaction.DepositDTO;
+import com.bankapplication.bankapplication.dto.transaction.TransactionResponseDTO;
 import com.bankapplication.bankapplication.dto.transaction.TransferDTO;
 import com.bankapplication.bankapplication.dto.transaction.WithdrawDTO;
 import com.bankapplication.bankapplication.model.Transaction;
@@ -23,34 +24,34 @@ public class TransactionController {
     }
 
     @GetMapping("/{accountNumber}")
-    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable String accountNumber) {
+    public ResponseEntity<List<TransactionResponseDTO>> getTransactions(@PathVariable String accountNumber) {
 
-        List<Transaction> transactions = transactionService.getTransactions(accountNumber);
+        List<TransactionResponseDTO> transactions = transactionService.getTransactions(accountNumber);
 
         return ResponseEntity.ok(transactions);
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<Transaction> deposit(@RequestBody DepositDTO depositDTO) {
+    public ResponseEntity<TransactionResponseDTO> deposit(@RequestBody DepositDTO depositDTO) {
 
-        Transaction transaction = transactionService.deposit(depositDTO.accountNumber(), depositDTO.amount());
+        TransactionResponseDTO transaction = transactionService.deposit(depositDTO.accountNumber(), depositDTO.amount());
 
         return ResponseEntity.ok(transaction);
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<Transaction> withdraw(@RequestBody WithdrawDTO withdrawDTO) {
+    public ResponseEntity<TransactionResponseDTO> withdraw(@RequestBody WithdrawDTO withdrawDTO) {
 
-        Transaction transaction = transactionService.withdraw(withdrawDTO.accountNumber(), withdrawDTO.amount());
+        TransactionResponseDTO transaction = transactionService.withdraw(withdrawDTO.accountNumber(), withdrawDTO.amount());
 
         return ResponseEntity.ok(transaction);
     }
 
 
     @PostMapping("/transfer")
-    public ResponseEntity<Transaction> transfer(@RequestBody TransferDTO transferDTO) {
+    public ResponseEntity<TransactionResponseDTO> transfer(@RequestBody TransferDTO transferDTO) {
 
-        Transaction transaction = transactionService.transfer(transferDTO.fromNumberAccount(), transferDTO.toNumberAccount(), transferDTO.amount());
+        TransactionResponseDTO transaction = transactionService.transfer(transferDTO.fromNumberAccount(), transferDTO.toNumberAccount(), transferDTO.amount());
 
         return ResponseEntity.ok(transaction);
     }

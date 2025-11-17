@@ -5,11 +5,12 @@ import lombok.Data;
 
 @Entity
 @Data
-public class SavingsAccount extends Account{
+public class SavingsAccount extends Account {
 
     private String accountNickname;
 
-    public SavingsAccount() {}
+    public SavingsAccount() {
+    }
 
     public SavingsAccount(String accountNumber, String agencyNumber, Customer customer, Double accountBalance,
                           Double transferLimit, String accountNickname) {
@@ -38,7 +39,7 @@ public class SavingsAccount extends Account{
     }
 
     public void withdraw(Double amount) {
-        if(amount < 0) throw new IllegalArgumentException("invalid withdraw");
+        if (amount < 0) throw new IllegalArgumentException("invalid withdraw");
 
         if (amount < getAccountBalance() && amount < getTransferLimit()) {
             setAccountBalance(getAccountBalance() - amount);

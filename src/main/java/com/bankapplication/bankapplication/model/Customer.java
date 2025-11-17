@@ -26,7 +26,8 @@ public class Customer {
     @JsonIgnoreProperties("customer")
     private List<Account> bankAccounts;
 
-    public Customer(){}
+    public Customer() {
+    }
 
     public Customer(String name, String cpf) {
         this.name = name;

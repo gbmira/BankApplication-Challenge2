@@ -1,6 +1,7 @@
 package com.bankapplication.bankapplication.controller;
 
 import com.bankapplication.bankapplication.dto.account.AccountDTO;
+import com.bankapplication.bankapplication.dto.account.AccountResponseDTO;
 import com.bankapplication.bankapplication.dto.account.UpdateCheckingDTO;
 import com.bankapplication.bankapplication.dto.account.UpdateSavingsDTO;
 import com.bankapplication.bankapplication.exceptions.AccountNotFoundException;
@@ -37,59 +38,59 @@ public class AccountController {
 
     //metodos iguais, porem se alterar algum atributo na classe, apenas alterariamos o DTO.
     @PostMapping("/savings")
-    public ResponseEntity<SavingsAccount> createSavingsAccount(@RequestBody AccountDTO dto) {
+    public ResponseEntity<AccountResponseDTO> createSavingsAccount(@RequestBody AccountDTO dto) {
 
-        SavingsAccount created = service.createSavingsAccount(dto);
+        AccountResponseDTO created = service.createSavingsAccount(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/savings/{accountNumber}")
-    public ResponseEntity<SavingsAccount> updateSavings(@PathVariable String accountNumber, @RequestBody UpdateSavingsDTO dto) {
+    public ResponseEntity<AccountResponseDTO> updateSavings(@PathVariable String accountNumber, @RequestBody UpdateSavingsDTO dto) {
 
-        SavingsAccount updated = service.updateSavings(accountNumber, dto);
+        AccountResponseDTO updated = service.updateSavings(accountNumber, dto);
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
 
     @PutMapping("/checking/{accountNumber}")
-    public ResponseEntity<CheckingAccount> updateChecking(@PathVariable String accountNumber, @RequestBody UpdateCheckingDTO dto) {
+    public ResponseEntity<AccountResponseDTO> updateChecking(@PathVariable String accountNumber, @RequestBody UpdateCheckingDTO dto) {
 
-        CheckingAccount updated = service.updateChecking(accountNumber, dto);
+        AccountResponseDTO updated = service.updateChecking(accountNumber, dto);
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
 
     @GetMapping("/checking")
-    public ResponseEntity<List<CheckingAccount>> getAllCheckingAccounts() {
+    public ResponseEntity<List<AccountResponseDTO>> getAllCheckingAccounts() {
 
-        List<CheckingAccount> checkingAccounts = service.getAllCheckingAccounts();
+        List<AccountResponseDTO> checkingAccounts = service.getAllCheckingAccounts();
 
         return ResponseEntity.status(HttpStatus.OK).body(checkingAccounts);
     }
 
     @GetMapping("/savings")
-    public ResponseEntity<List<SavingsAccount>> getAllSavingsAccounts() {
+    public ResponseEntity<List<AccountResponseDTO>> getAllSavingsAccounts() {
 
-        List<SavingsAccount> savingsAccounts = service.getAllSavingsAccounts();
+        List<AccountResponseDTO> savingsAccounts = service.getAllSavingsAccounts();
         return ResponseEntity.status(HttpStatus.OK).body(savingsAccounts);
     }
 
     @GetMapping("/checking/{accountNumber}")
-    public ResponseEntity<CheckingAccount> getCheckingAccountByAccountNumber(@PathVariable String accountNumber) {
+    public ResponseEntity<AccountResponseDTO> getCheckingAccountByAccountNumber(@PathVariable String accountNumber) {
 
-        CheckingAccount checkingAccount = service.getCheckingAccountByAccountNumber(accountNumber);
+        AccountResponseDTO checkingAccount = service.getCheckingAccountByAccountNumber(accountNumber);
         return ResponseEntity.status(HttpStatus.OK).body(checkingAccount);
     }
 
     @GetMapping("/savings/{accountNumber}")
-    public ResponseEntity<SavingsAccount> getSavingsAccountByAccountNumber(@PathVariable String accountNumber) {
+    public ResponseEntity<AccountResponseDTO> getSavingsAccountByAccountNumber(@PathVariable String accountNumber) {
 
-        SavingsAccount savingsAccount = service.getSavingsAccountByAccountNumber(accountNumber);
+        AccountResponseDTO savingsAccount = service.getSavingsAccountByAccountNumber(accountNumber);
         return ResponseEntity.status(HttpStatus.OK).body(savingsAccount);
     }
 
     @GetMapping
-    public ResponseEntity<List<Account>> getAllAccounts() {
+    public ResponseEntity<List<AccountResponseDTO>> getAllAccounts() {
 
-        List<Account> accounts = service.getAllAcounts();
+        List<AccountResponseDTO> accounts = service.getAllAcounts();
         return ResponseEntity.status(HttpStatus.OK).body(accounts);
     }
 

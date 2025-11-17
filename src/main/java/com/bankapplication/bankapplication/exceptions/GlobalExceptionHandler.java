@@ -25,19 +25,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<Object> handleAccountNotFound(AccountNotFoundException ex) {
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildBody(ex.getMessage(),  HttpStatus.NOT_FOUND));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildBody(ex.getMessage(), HttpStatus.NOT_FOUND));
     }
 
     @ExceptionHandler(InvalidTransactionException.class)
     public ResponseEntity<Object> handleInvalidTransaction(InvalidTransactionException ex) {
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildBody(ex.getMessage(),   HttpStatus.BAD_REQUEST));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildBody(ex.getMessage(), HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(InsufficientBalanceException.class)
     public ResponseEntity<Object> handleInsufficientBalance(InsufficientBalanceException ex) {
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildBody(ex.getMessage(),    HttpStatus.BAD_REQUEST));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildBody(ex.getMessage(), HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(CustomerNotFoundException.class)

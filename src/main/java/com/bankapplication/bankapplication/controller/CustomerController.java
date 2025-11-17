@@ -1,6 +1,7 @@
 package com.bankapplication.bankapplication.controller;
 
 import com.bankapplication.bankapplication.dto.customer.CreateCustomerDTO;
+import com.bankapplication.bankapplication.dto.customer.CustomerResponseDTO;
 import com.bankapplication.bankapplication.dto.customer.UpdateCustomerDTO;
 import com.bankapplication.bankapplication.exceptions.CustomerNotFoundException;
 import com.bankapplication.bankapplication.model.Customer;
@@ -32,23 +33,24 @@ public class CustomerController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<Customer> updateCustomer(@RequestBody UpdateCustomerDTO updateCustomerDTO, @PathVariable String cpf) {
+    public ResponseEntity<CustomerResponseDTO> updateCustomer(@RequestBody UpdateCustomerDTO updateCustomerDTO, @PathVariable String cpf) {
 
-        Customer customerUpdated = customerService.updateCustomer(cpf, updateCustomerDTO);
+        CustomerResponseDTO customerUpdated = customerService.updateCustomer(cpf, updateCustomerDTO);
         return ResponseEntity.status(HttpStatus.OK).body(customerUpdated);
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable String cpf) {
+    public ResponseEntity<CustomerResponseDTO> getCustomer(@PathVariable String cpf) {
 
-        Customer customer = customerService.getCustomer(cpf);
+        CustomerResponseDTO customer = customerService.getCustomer(cpf);
+
         return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers() {
 
-        List<Customer> customers = customerService.getAllCustomers();
+        List<CustomerResponseDTO> customers = customerService.getAllCustomers();
 
         return ResponseEntity.status(HttpStatus.OK).body(customers);
     }

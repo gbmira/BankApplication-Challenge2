@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SavingsAccountRepository extends JpaRepository<SavingsAccount,Long> {
+public interface SavingsAccountRepository extends JpaRepository<SavingsAccount, Long> {
 
     Optional<SavingsAccount> findByAccountNumber(String accountNumber);
 

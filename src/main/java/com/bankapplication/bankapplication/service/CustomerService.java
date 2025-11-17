@@ -1,8 +1,10 @@
 package com.bankapplication.bankapplication.service;
 
 import com.bankapplication.bankapplication.dto.customer.CreateCustomerDTO;
+import com.bankapplication.bankapplication.dto.customer.CustomerResponseDTO;
 import com.bankapplication.bankapplication.dto.customer.UpdateCustomerDTO;
 import com.bankapplication.bankapplication.exceptions.CustomerNotFoundException;
+import com.bankapplication.bankapplication.mapper.customer.CustomerMapper;
 import com.bankapplication.bankapplication.model.Customer;
 import com.bankapplication.bankapplication.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Customer updateCustomer(String cpf, UpdateCustomerDTO updateCustomerDTO) {
+    public CustomerResponseDTO updateCustomer(String cpf, UpdateCustomerDTO updateCustomerDTO) {
 
         Customer customer = customerRepository.findByCpf(cpf)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found!"));
@@ -49,20 +51,20 @@ public class CustomerService {
             customer.setEmail(updateCustomerDTO.email());
         }
 
-        return customerRepository.save(customer);
+        return CustomerMapper.toDTO(customerRepository.save(customer));
     }
 
-    public Customer getCustomer(String cpf) {
+    public CustomerResponseDTO getCustomer(String cpf) {
 
         Customer customer = customerRepository.findByCpf(cpf)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found!"));
 
-        return customer;
+        return CustomerMapper.toDTO(customer);
     }
 
-    public List<Customer> getAllCustomers() {
+    public List<CustomerResponseDTO> getAllCustomers() {
 
-        List<Customer> customers = customerRepository.findAll();
+        List<CustomerResponseDTO> customers = customerRepository.findAll().stream().map(CustomerMapper::toDTO).toList();
 
         return customers;
     }
@@ -70,7 +72,7 @@ public class CustomerService {
     public void deleteCustomer(String cpf) {
 
         Customer customer = customerRepository.findByCpf(cpf)
-                        .orElseThrow(() -> new CustomerNotFoundException("Customer not found!"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found!"));
 
         customerRepository.delete(customer);
     }

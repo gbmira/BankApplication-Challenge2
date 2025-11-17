@@ -8,12 +8,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class CheckingAccount extends Account{
+public class CheckingAccount extends Account {
 
-    public CheckingAccount() {}
+    public CheckingAccount() {
+    }
 
     public CheckingAccount(String accountNumber, String agencyNumber, Customer consumer, Double accountBalance,
-                            Double transferLimit) {
+                           Double transferLimit) {
         super(accountNumber, agencyNumber, consumer, accountBalance, transferLimit);
     }
 

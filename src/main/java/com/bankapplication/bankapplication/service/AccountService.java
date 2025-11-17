@@ -1,10 +1,12 @@
 package com.bankapplication.bankapplication.service;
 
 import com.bankapplication.bankapplication.dto.account.AccountDTO;
+import com.bankapplication.bankapplication.dto.account.AccountResponseDTO;
 import com.bankapplication.bankapplication.dto.account.UpdateCheckingDTO;
 import com.bankapplication.bankapplication.dto.account.UpdateSavingsDTO;
 import com.bankapplication.bankapplication.exceptions.AccountNotFoundException;
 import com.bankapplication.bankapplication.exceptions.CustomerNotFoundException;
+import com.bankapplication.bankapplication.mapper.customer.AccountMapper;
 import com.bankapplication.bankapplication.model.*;
 import com.bankapplication.bankapplication.repository.AccountRepository;
 import com.bankapplication.bankapplication.repository.CheckingAccountRepository;
@@ -45,7 +47,7 @@ public class AccountService {
         return repository.save(account);
     }
 
-    public SavingsAccount createSavingsAccount(AccountDTO dto) {
+    public AccountResponseDTO createSavingsAccount(AccountDTO dto) {
 
         Customer customer = customerRepository.findByCpf(dto.customerCPF())
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found!"));
@@ -59,10 +61,12 @@ public class AccountService {
         account.setCustomer(customer);
         account.setAccountNickname(dto.accountNickname());
 
-        return repository.save(account);
+        repository.save(account);
+
+        return AccountMapper.toDTO(account);
     }
 
-    public SavingsAccount updateSavings(String accountNumber, UpdateSavingsDTO dto) {
+    public AccountResponseDTO updateSavings(String accountNumber, UpdateSavingsDTO dto) {
 
         SavingsAccount acc = savingsAccountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new AccountNotFoundException(accountNumber));
@@ -79,10 +83,10 @@ public class AccountService {
 
         repository.save(acc);
 
-        return acc;
+        return AccountMapper.toDTO(acc);
     }
 
-    public CheckingAccount updateChecking(String accountNumber, UpdateCheckingDTO dto) {
+    public AccountResponseDTO updateChecking(String accountNumber, UpdateCheckingDTO dto) {
         CheckingAccount acc = checkingAccountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found"));
 
@@ -91,37 +95,43 @@ public class AccountService {
 
         repository.save(acc);
 
-        return acc;
+        return AccountMapper.toDTO(acc);
     }
 
-    public List<CheckingAccount> getAllCheckingAccounts() {
+    public List<AccountResponseDTO> getAllCheckingAccounts() {
 
-        List<CheckingAccount> checkingAccounts = checkingAccountRepository.findAll();
+        List<AccountResponseDTO> checkingAccounts = checkingAccountRepository.findAll()
+                .stream()
+                .map(AccountMapper::toDTO)
+                .toList();
 
         return checkingAccounts;
     }
 
-    public List<SavingsAccount> getAllSavingsAccounts() {
+    public List<AccountResponseDTO> getAllSavingsAccounts() {
 
-        List<SavingsAccount> savingsAccounts = savingsAccountRepository.findAll();
+        List<AccountResponseDTO> savingsAccounts = savingsAccountRepository.findAll()
+                .stream()
+                .map(AccountMapper::toDTO)
+                .toList();
 
         return savingsAccounts;
     }
 
-    public CheckingAccount getCheckingAccountByAccountNumber(String accountNumber) {
+    public AccountResponseDTO getCheckingAccountByAccountNumber(String accountNumber) {
 
         CheckingAccount account = checkingAccountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found"));
 
-        return account;
+        return AccountMapper.toDTO(account);
     }
 
-    public SavingsAccount getSavingsAccountByAccountNumber(String accountNumber) {
+    public AccountResponseDTO getSavingsAccountByAccountNumber(String accountNumber) {
 
         SavingsAccount account = savingsAccountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found"));
 
-        return account;
+        return AccountMapper.toDTO(account);
     }
 
     public void deleteAccount(String accountNumber) {
@@ -132,9 +142,13 @@ public class AccountService {
         repository.delete(account);
     }
 
-    public List<Account> getAllAcounts() {
+    public List<AccountResponseDTO> getAllAcounts() {
 
-        List<Account> accounts = repository.findAll();
+        List<AccountResponseDTO> accounts = repository.findAll()
+                .stream()
+                .map(AccountMapper::toDTO)
+                .toList();
+
         return accounts;
     }
 }
