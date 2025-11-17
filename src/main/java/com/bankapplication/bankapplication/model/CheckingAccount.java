@@ -1,5 +1,6 @@
 package com.bankapplication.bankapplication.model;
 
+import com.bankapplication.bankapplication.exceptions.InvalidTransactionException;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
@@ -38,7 +39,7 @@ public class CheckingAccount extends Account{
             setAccountBalance(getAccountBalance() - amount - fee);
             addTransaction(new Transaction(TransactionType.WITHDRAW, amount, this, null));
         } else {
-            System.out.println("Insufficient funds or Limit exceeded, try again with another value.");
+            throw new InvalidTransactionException("Insufficient funds or Limit exceeded, try again with another value.");
         }
 
     }

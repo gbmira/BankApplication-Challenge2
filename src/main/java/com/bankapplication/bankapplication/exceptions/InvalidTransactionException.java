@@ -1,0 +1,8 @@
+package com.bankapplication.bankapplication.exceptions;
+
+public class InvalidTransactionException extends RuntimeException{
+
+    public InvalidTransactionException(String message) {
+        super(message);
+    }
+}

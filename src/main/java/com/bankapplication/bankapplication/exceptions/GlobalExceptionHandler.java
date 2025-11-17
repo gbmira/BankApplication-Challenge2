@@ -13,11 +13,11 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private Map<String, Object> buildBody(String message) {
+    private Map<String, Object> buildBody(String message, HttpStatus status) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.NOT_FOUND.value());
-        body.put("error", "Not Found");
+        body.put("status", status.value());
+        body.put("error", status.getReasonPhrase());
         body.put("message", message);
         return body;
     }
@@ -25,12 +25,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<Object> handleAccountNotFound(AccountNotFoundException ex) {
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildBody(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildBody(ex.getMessage(),  HttpStatus.NOT_FOUND));
+    }
+
+    @ExceptionHandler(InvalidTransactionException.class)
+    public ResponseEntity<Object> handleInvalidTransaction(InvalidTransactionException ex) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildBody(ex.getMessage(),   HttpStatus.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<Object> handleInsufficientBalance(InsufficientBalanceException ex) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildBody(ex.getMessage(),    HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<Object> handleCustomerNotFound(CustomerNotFoundException ex) {
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildBody(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildBody(ex.getMessage(), HttpStatus.NOT_FOUND));
     }
 }
