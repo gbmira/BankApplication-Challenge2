@@ -64,14 +64,15 @@ A documentação interativa via Swagger está disponível online em:
 
 ### Customer
 - **GET** `/customers` – Lista todos os clientes  
-- **GET** `/customers/{id}` – Busca cliente por ID  
-- **POST** `/customers` – Cria novo cliente  
+- **GET** `/customers/{cpf}` – Busca cliente por CPF 
+- **POST** `/customers` – Cria novo cliente
+- **PUT** `/customers/{cpf}` – Atualiza cliente por CPF.
 
 ### Account
 - **GET** `/accounts` – Lista todas as contas  
 - **GET** `/accounts/{id}` – Busca conta por ID  
-- **PUT** `/savings/{accountNumber}` – Atualiza conta poupança  
-- **PUT** `/checking/{accountNumber}` – Atualiza conta corrente  
+- **PUT** `/savings/{accountNumber}` – Atualiza conta poupança pelo número da conta
+- **PUT** `/checking/{accountNumber}` – Atualiza conta corrente pelo número da conta
 - **POST** `/accounts/checking` – Cria conta corrente  
 - **POST** `/accounts/savings` – Cria conta poupança  
 
